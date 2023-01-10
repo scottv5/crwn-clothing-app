@@ -18,7 +18,7 @@ const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
-  const signInFormSubmitHandler = async (e) => {
+  const signUpFormSubmitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       setFormFields(() => ({
@@ -51,7 +51,7 @@ const SignUpForm = () => {
       <h2>Don't have an account?</h2>
       <span>Sign up with your email</span>
 
-      <form onSubmit={signInFormSubmitHandler}>
+      <form onSubmit={signUpFormSubmitHandler}>
         <FormInput
           label="Display Name"
           type="text"
