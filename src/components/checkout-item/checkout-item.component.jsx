@@ -12,18 +12,20 @@ const CheckoutItem = ({ cartItem }) => {
       <div className="image-container">
         <img src={imageUrl} alt={name} />
       </div>
-      <span>{name}</span>
-      <span className="quantity-control-grouping">
-        <span onClick={() => decreaseItemQuantity(cartItem)}>
-          _______left_______
+      <span className="name">{name}</span>
+      <span className="quantity quantity-control-grouping">
+        <span className="arrow" onClick={() => decreaseItemQuantity(cartItem)}>
+          &#60;
         </span>
-        <span>{quantity}</span>
-        <span onClick={() => increaseItemQuantity(cartItem)}>
-          _______right_______
+        <span className="value">{quantity}</span>
+        <span className="arrow" onClick={() => increaseItemQuantity(cartItem)}>
+          &#62;
         </span>
       </span>
-      <span>{price}</span>
-      <span onClick={() => removeItem(cartItem)}>X</span>
+      <span className="price">{price}</span>
+      <span className="remove-button" onClick={() => removeItem(cartItem)}>
+        &#10005;
+      </span>
     </div>
   );
 };

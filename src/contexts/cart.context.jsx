@@ -16,27 +16,23 @@ const addCartItem = (cartItems, productToAdd) => {
   return [...cartItems, { ...productToAdd, quantity: 1 }];
 };
 
-const increaseQuantity = (cartItems, itemToIncreaseQuantity) => {
-  let quantity;
-  return cartItems.map((item) => {
+const increaseQuantity = (cartItems, itemToIncreaseQuantity) =>
+  cartItems.map((item) => {
     if (item.id === itemToIncreaseQuantity.id) {
-      quantity = item.quantity + 1;
+      const quantity = item.quantity + 1;
       return { ...item, quantity };
     }
     return item;
   });
-};
 
-const decreaseQuantity = (cartItems, itemToDecreaseQuantity) => {
-  let quantity;
-  return cartItems.map((item) => {
+const decreaseQuantity = (cartItems, itemToDecreaseQuantity) =>
+  cartItems.map((item) => {
     if (item.id === itemToDecreaseQuantity.id && item.quantity > 0) {
-      quantity = item.quantity - 1;
+      const quantity = item.quantity - 1;
       return { ...item, quantity };
     }
     return item;
   });
-};
 
 const removeItemHelper = (cartItems, itemToRemove) =>
   cartItems.filter((item) => item.id !== itemToRemove.id);

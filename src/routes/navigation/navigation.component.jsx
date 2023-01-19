@@ -1,4 +1,3 @@
-import "./navigation.styles.scss";
 import { Outlet, Link } from "react-router-dom";
 import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 import { Fragment, useContext } from "react";
@@ -7,6 +6,7 @@ import { CartContext } from "../../contexts/cart.context";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
 import CartIcon from "../../components/cart-icon/cart-icon.component";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
+import styled from "styled-components";
 
 const Navigation = () => {
   const { currentUser } = useContext(UserContext);
@@ -22,31 +22,73 @@ const Navigation = () => {
 
   return (
     <Fragment>
-      <div className="navigation">
-        <Link className="logo-container" to="/">
+      <NavigationContainer>
+        <LogoContainer to="/">
           <CrwnLogo className="logo" />
-        </Link>
-        <div className="nav-links-container">
+        </LogoContainer>
+        <NavLinksContainer>
           {currentUser ? (
-            <Link className="nav-link" onClick={signOutHandler}>
-              SIGN OUT
-            </Link>
+            <NavLink onClick={signOutHandler}>SIGN OUT</NavLink>
           ) : (
-            <Link className="nav-link" to="/auth">
-              SIGN IN
-            </Link>
+            <NavLink to="/auth">SIGN IN</NavLink>
           )}
-
-          <Link className="nav-link" to="/shop">
-            SHOP
-          </Link>
+          <NavLink to="/shop">SHOP</NavLink>
           <CartIcon />
-        </div>
+        </NavLinksContainer>
         {isDropdownOpen ? <CartDropdown /> : null}
-      </div>
+      </NavigationContainer>
       <Outlet />
     </Fragment>
   );
 };
 
 export default Navigation;
+
+//styles
+const NavigationContainer = styled.div`
+  height: 70px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+`;
+const LogoContainer = styled(Link)`
+  height: 100%;
+  width: 70px;
+  padding: 25px;
+`;
+const NavLinksContainer = styled.div`
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+`;
+const NavLink = styled(Link)`
+  padding: 10px 15px;
+  cursor: pointer;
+`;
+
+// .navigation {
+//   height: 70px;
+//   width: 100%;
+//   display: flex;
+//   justify-content: space-between;
+//   margin-bottom: 25px;
+//   .logo-container {
+//     height: 100%;
+//     width: 70px;
+//     padding: 25px;
+//   }
+//   .nav-links-container {
+//     width: 50%;
+//     height: 100%;
+//     display: flex;
+//     align-items: center;
+//     justify-content: flex-end;
+//     .nav-link {
+//       padding: 10px 15px;
+//       cursor: pointer;
+//     }
+//   }
+// }
