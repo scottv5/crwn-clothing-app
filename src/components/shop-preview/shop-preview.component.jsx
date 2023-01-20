@@ -1,4 +1,3 @@
-import "./shop-preview.styles.scss";
 import { useContext } from "react";
 import { CategoriesContext } from "../../contexts/categories.context";
 import ShopCategoryPreview from "../shop-category-preview/shop-category-preview.component";
