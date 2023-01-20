@@ -1,4 +1,3 @@
-import "./sign-up.styles.scss";
 import { useState } from "react";
 import {
   createAuthUserWithEmailAndPassword,
@@ -6,6 +5,7 @@ import {
 } from "../../utils/firebase/firebase.utils";
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
+import styled from "styled-components";
 
 const SignUpForm = () => {
   const defaultFormFields = {
@@ -47,7 +47,7 @@ const SignUpForm = () => {
     }));
   };
   return (
-    <div className="sign-up-container">
+    <SignUpFormContainer>
       <h2>Don't have an account?</h2>
       <span>Sign up with your email</span>
 
@@ -90,8 +90,28 @@ const SignUpForm = () => {
 
         <Button>Sign Up</Button>
       </form>
-    </div>
+    </SignUpFormContainer>
   );
 };
 
 export default SignUpForm;
+
+//styles
+const SignUpFormContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 380px;
+  h2 {
+    margin: 10px 0;
+  }
+`;
+
+// .sign-up-container {
+//   display: flex;
+//   flex-direction: column;
+//   width: 380px;
+
+//   h2 {
+//     margin: 10px 0;
+//   }
+// }

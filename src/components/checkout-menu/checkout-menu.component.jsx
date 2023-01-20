@@ -18,7 +18,9 @@ const CheckoutMenu = () => {
       {cartItems.map((cartItem) => (
         <CheckoutItem key={cartItem.id} cartItem={cartItem} />
       ))}
-      <div className="total">${getPriceTotal()}</div>
+      <div className="total">
+        {getPriceTotal() ? `Total: $${getPriceTotal()}` : null}
+      </div>
     </div>
   );
 };

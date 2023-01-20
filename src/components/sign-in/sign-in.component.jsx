@@ -1,7 +1,6 @@
-import "./sign-in.styles.scss";
 import FormInput from "../form-input/form-input.component";
 import { useState, useEffect } from "react";
-import Button from "../button/button.component";
+import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
 import {
   auth,
   signInWithGooglePopup,
@@ -10,6 +9,7 @@ import {
   signInAuthUserWithEmailAndPassword,
 } from "../../utils/firebase/firebase.utils";
 import { getRedirectResult } from "firebase/auth";
+import styled from "styled-components";
 
 const SignInForm = () => {
   const defaultFormFields = {
@@ -60,7 +60,7 @@ const SignInForm = () => {
   };
 
   return (
-    <div className="sign-in-container">
+    <SignInContainer>
       <h2>Already have an account?</h2>
       <span>Sign in here</span>
 
@@ -82,27 +82,58 @@ const SignInForm = () => {
           onChange={inputOnChangeHandler}
           required
         />
-        <div className="sign-in-buttons-container">
+        <SignInButtonsContainer>
           <Button>Sign In</Button>
           <Button
             type="button"
-            buttonType="google"
+            buttonType={BUTTON_TYPE_CLASSES.google}
             onClick={logGoogleUserWithPopup}
           >
             Googe Sign In
           </Button>
           <Button
             type="button"
-            buttonType="google"
             style={{ flex: "1 1 auto", marginTop: "12px" }}
             onClick={signInWithGoogleRedirect}
+            buttonType={BUTTON_TYPE_CLASSES.google}
           >
             Sign In with Google Redirect
           </Button>
-        </div>
+        </SignInButtonsContainer>
       </form>
-    </div>
+    </SignInContainer>
   );
 };
 
 export default SignInForm;
+
+//styles
+const SignInContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 380px;
+  h2 {
+    margin: 10px 0;
+  }
+`;
+const SignInButtonsContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
+
+// .sign-in-container {
+//   display: flex;
+//   flex-direction: column;
+//   width: 380px;
+
+//   h2 {
+//     margin: 10px 0;
+//   }
+// }
+
+// .sign-in-buttons-container {
+//   display: flex;
+//   flex-wrap: wrap;
+//   justify-content: space-between;
+// }
