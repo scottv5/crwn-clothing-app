@@ -1,16 +1,36 @@
 import { Outlet, Link } from "react-router-dom";
 import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
-import { Fragment, useContext } from "react";
-import { UserContext } from "../../contexts/user.context";
+import { Fragment, useContext, useEffect, useState } from "react";
+//import { UserContext } from "../../contexts/user.context";
 import { CartContext } from "../../contexts/cart.context";
-import { signOutUser } from "../../utils/firebase/firebase.utils";
+import {
+  signOutUser,
+  createUserDocumentFromAuth,
+} from "../../utils/firebase/firebase.utils";
 import CartIcon from "../../components/cart-icon/cart-icon.component";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../store/user/user.selector";
 
 const Navigation = () => {
-  const { currentUser } = useContext(UserContext);
+  // const { currentUser } = useContext(UserContext);
   const { isDropdownOpen } = useContext(CartContext);
+  const currentUser = useSelector(selectCurrentUser);
+  const [displayName, setDisplayName] = useState("");
+
+  useEffect(() => {
+    const getDisplayName = async () => {
+      try {
+        const res = await createUserDocumentFromAuth(currentUser);
+        if (!res || !res.displayName) return;
+        return setDisplayName(res.displayName);
+      } catch (e) {
+        console.log("Error at navigation component:", e);
+      }
+    };
+    getDisplayName();
+  }, [currentUser]);
 
   const signOutHandler = async () => {
     try {
@@ -27,6 +47,7 @@ const Navigation = () => {
           <CrwnLogo className="logo" />
         </LogoContainer>
         <NavLinksContainer>
+          {currentUser ? <span>{displayName}</span> : null}
           {currentUser ? (
             <NavLink as="span" onClick={signOutHandler}>
               SIGN OUT

@@ -10,8 +10,11 @@ import {
 } from "../../utils/firebase/firebase.utils";
 import { getRedirectResult } from "firebase/auth";
 import styled from "styled-components";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/user.context";
 
 const SignInForm = () => {
+  const { setCurrentUser } = useContext(UserContext);
   const defaultFormFields = {
     email: "",
     password: "",
@@ -22,13 +25,14 @@ const SignInForm = () => {
   useEffect(() => {
     const getRedirectResultAndCreateUserDoc = async () => {
       const res = await getRedirectResult(auth);
-      if (res) {
+      if (res && res.user) {
         //const userDoc=
         await createUserDocumentFromAuth(res.user);
+        setCurrentUser(res.user);
       }
     };
     getRedirectResultAndCreateUserDoc();
-  }, []);
+  }, [setCurrentUser]);
 
   const logGoogleUserWithPopup = async () => {
     await signInWithGooglePopup();
