@@ -14,9 +14,8 @@ const persistConfig = {
 const middlewares = [thunk];
 
 const composeEnhancer =
-  process.env.NODE_ENV !== "production" &&
-  window &&
-  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+  //process.env.NODE_ENV !== "production" &&
+  window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 
 const composeEnhancers = composeEnhancer(applyMiddleware(...middlewares));
 
