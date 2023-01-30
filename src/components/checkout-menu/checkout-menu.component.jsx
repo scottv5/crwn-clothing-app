@@ -1,10 +1,15 @@
 import "./chekcout-menu.styles.scss";
 import CheckoutItem from "../checkout-item/checkout-item.component";
-import { useContext } from "react";
-import { CartContext } from "../../contexts/cart.context";
+import { useSelector } from "react-redux";
+import {
+  selectCartItems,
+  selectPriceTotal,
+} from "../../store/cart/cart.selector";
+import PaymentForm from "../payments-form/payments-form.component";
 
 const CheckoutMenu = () => {
-  const { cartItems, getPriceTotal } = useContext(CartContext);
+  const cartItems = useSelector(selectCartItems);
+  const priceTotal = useSelector(selectPriceTotal);
 
   return (
     <div className="checkout-container">
@@ -18,9 +23,8 @@ const CheckoutMenu = () => {
       {cartItems.map((cartItem) => (
         <CheckoutItem key={cartItem.id} cartItem={cartItem} />
       ))}
-      <div className="total">
-        {getPriceTotal() ? `Total: $${getPriceTotal()}` : null}
-      </div>
+      <div className="total">{priceTotal ? `Total: $${priceTotal}` : null}</div>
+      <PaymentForm />
     </div>
   );
 };

@@ -4,14 +4,18 @@ import Button, {
   GoogleSignInButton,
 } from "../button/button.component";
 import CartItem from "../cart-item/cart-item.component";
-import { useContext } from "react";
-import { CartContext } from "../../contexts/cart.context";
+import { useSelector } from "react-redux";
+import {
+  selectCartItems,
+  selectPriceTotal,
+} from "../../store/cart/cart.selector";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const CartDropdown = () => {
   const navigate = useNavigate();
-  const { cartItems, getPriceTotal } = useContext(CartContext);
+  const cartItems = useSelector(selectCartItems);
+  const priceTotal = useSelector(selectPriceTotal);
   return (
     <CartDropdownContainer>
       <CartItemsContainer>
@@ -23,7 +27,7 @@ const CartDropdown = () => {
           <EmptyMessage>YOUR CART IS EMPTY</EmptyMessage>
         )}
       </CartItemsContainer>
-      {cartItems.length ? <div>`Total: $${getPriceTotal()}`</div> : null}
+      {cartItems.length ? <div>`Total: $ ${priceTotal}`</div> : null}
       <Button onClick={() => navigate("/checkout")}>To Checkout</Button>
     </CartDropdownContainer>
   );
@@ -61,30 +65,3 @@ const EmptyMessage = styled.span`
   font-size: 18px;
   margin: 50px auto;
 `;
-
-// .cart-dropdown-container {
-//   position: absolute;
-//   width: 240px;
-//   height: 340px;
-//   display: flex;
-//   flex-direction: column;
-//   padding: 20px;
-//   border: 1px solid black;
-//   background-color: white;
-//   top: 90px;
-//   right: 40px;
-//   z-index: 5;
-//   .empty-message {
-//     font-size: 18px;
-//     margin: 50px auto;
-//   }
-//   .cart-items {
-//     height: 240px;
-//     display: flex;
-//     flex-direction: column;
-//     overflow: scroll;
-//   }
-//   button {
-//     margin-top: auto;
-//   }
-// }

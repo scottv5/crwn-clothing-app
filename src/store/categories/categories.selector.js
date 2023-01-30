@@ -1,13 +1,23 @@
-export const selectCategoriesMap = (state) => {
-  return state.categories.categoriesData.reduce((accu, currObj) => {
-    const { title, items } = currObj;
-    accu[title.toLowerCase()] = items;
-    return accu;
-  }, {});
-};
+import { createSelector } from "reselect";
 
-// const categoryMap = querySnapshot.docs.reduce((accu, currDocSnap) => {
-//   const { title, items } = currDocSnap.data();
-//   accu[title.toLowerCase()] = items;
-//   return accu;
-// }, {});
+const selectCategoriesReducer = (state) => state.categories;
+
+export const selectCategoriesData = createSelector(
+  [selectCategoriesReducer],
+  (categoriesReducer) => categoriesReducer.categoriesData
+);
+
+export const selectCategoriesIsLoading = createSelector(
+  [selectCategoriesReducer],
+  (categoriesReducer) => categoriesReducer.isLoading
+);
+
+export const selectCategoriesMap = createSelector(
+  [selectCategoriesData],
+  (categoriesData) => {
+    return categoriesData.reduce((accu, currObj) => {
+      const { title, items } = currObj;
+      return { ...accu, [title.toLowerCase()]: items };
+    }, {});
+  }
+);

@@ -1,20 +1,21 @@
 import FormInput from "../form-input/form-input.component";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+// , useEffect
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
 import {
-  auth,
+  //auth,
   signInWithGooglePopup,
   signInWithGoogleRedirect,
-  createUserDocumentFromAuth,
+  //createUserDocumentFromAuth,
   signInAuthUserWithEmailAndPassword,
 } from "../../utils/firebase/firebase.utils";
-import { getRedirectResult } from "firebase/auth";
+//import { getRedirectResult } from "firebase/auth";
 import styled from "styled-components";
-import { useContext } from "react";
-import { UserContext } from "../../contexts/user.context";
+// import { useContext } from "react";
+// import { UserContext } from "../../contexts/user.context";
 
 const SignInForm = () => {
-  const { setCurrentUser } = useContext(UserContext);
+  //const { setCurrentUser } = useContext(UserContext);
   const defaultFormFields = {
     email: "",
     password: "",
@@ -22,17 +23,17 @@ const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
-  useEffect(() => {
-    const getRedirectResultAndCreateUserDoc = async () => {
-      const res = await getRedirectResult(auth);
-      if (res && res.user) {
-        //const userDoc=
-        await createUserDocumentFromAuth(res.user);
-        setCurrentUser(res.user);
-      }
-    };
-    getRedirectResultAndCreateUserDoc();
-  }, [setCurrentUser]);
+  // useEffect(() => {
+  //   const getRedirectResultAndCreateUserDoc = async () => {
+  //     const res = await getRedirectResult(auth);
+  //     if (res && res.user) {
+  //       //const userDoc=
+  //       await createUserDocumentFromAuth(res.user);
+  //       setCurrentUser(res.user);
+  //     }
+  //   };
+  //   getRedirectResultAndCreateUserDoc();
+  // }, [setCurrentUser]);
 
   const logGoogleUserWithPopup = async () => {
     await signInWithGooglePopup();
@@ -42,11 +43,7 @@ const SignInForm = () => {
   const signInFormSubmitHandler = async (e) => {
     e.preventDefault();
     try {
-      //const res =
       await signInAuthUserWithEmailAndPassword(email, password);
-      //console.log(res.user);
-      // const res2 = await createUserDocumentFromAuth(res.user);
-      // console.log(res2);
       setFormFields(() => defaultFormFields);
     } catch (e) {
       console.log(

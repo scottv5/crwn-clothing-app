@@ -6,11 +6,14 @@ import ProductCard from "../product-card/product-card.component";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { selectCategoriesMap } from "../../store/categories/categories.selector";
+import Spinner from "../spinner/spinner.component";
+import { selectCategoriesIsLoading } from "../../store/categories/categories.selector";
 
 const ShopCategoryFull = () => {
   const { category } = useParams();
   //const { categoriesMap } = useContext(CategoriesContext);
   const categoriesMap = useSelector(selectCategoriesMap);
+  const isLoading = useSelector(selectCategoriesIsLoading);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -20,12 +23,16 @@ const ShopCategoryFull = () => {
   return (
     <CategoryFullContainer>
       <Title>{category[0].toUpperCase() + category.slice(1)}</Title>
-      <Preview>
-        {products &&
-          products.map((product) => {
-            return <ProductCard key={product.id} product={product} />;
-          })}
-      </Preview>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <Preview>
+          {products &&
+            products.map((product) => {
+              return <ProductCard key={product.id} product={product} />;
+            })}
+        </Preview>
+      )}
     </CategoryFullContainer>
   );
 };

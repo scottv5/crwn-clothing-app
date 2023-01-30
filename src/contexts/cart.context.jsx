@@ -53,12 +53,12 @@ export const CART_ACTION_TYPES = {
 
 export const cartReducer = (state, action) => {
   const { type, payload } = action;
-  const { isDropdownOpen } = state;
+  //const { isDropdownOpen } = state;
   switch (type) {
     case CART_ACTION_TYPES.UPDATE_CART_ITEMS:
       return { ...state, cartItems: payload };
     case CART_ACTION_TYPES.TOGGLE_DROPDOWN:
-      return { ...state, isDropdownOpen: !isDropdownOpen };
+      return { ...state, isDropdownOpen: state.isDropdownOpen };
     default:
       throw new Error(`Error at cart reducer. Unhandled type: ${type}`);
   }
