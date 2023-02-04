@@ -30,6 +30,8 @@ const firebaseConfig = {
   appId: "1:310256914813:web:98fce7a8a20511a10dfc14",
 };
 
+//import { CategoriesData } from "../../store/categories/categories.action";
+
 //const firebaseApp =
 initializeApp(firebaseConfig);
 

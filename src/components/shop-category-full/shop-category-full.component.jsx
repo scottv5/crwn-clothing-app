@@ -1,7 +1,5 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-//useContext
-//import { CategoriesContext } from "../../contexts/categories.context";
 import ProductCard from "../product-card/product-card.component";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
@@ -11,7 +9,6 @@ import { selectCategoriesIsLoading } from "../../store/categories/categories.sel
 
 const ShopCategoryFull = () => {
   const { category } = useParams();
-  //const { categoriesMap } = useContext(CategoriesContext);
   const categoriesMap = useSelector(selectCategoriesMap);
   const isLoading = useSelector(selectCategoriesIsLoading);
   const [products, setProducts] = useState([]);

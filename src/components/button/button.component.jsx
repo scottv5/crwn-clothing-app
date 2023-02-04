@@ -1,6 +1,24 @@
 import styled from "styled-components";
 import { SpinnerContainer } from "../spinner/spinner.component";
 
+export const BUTTON_TYPE_CLASSES = {
+  base: "base",
+  google: "google-sign-in",
+  inverted: "inverted",
+};
+
+const Button = ({ children, buttonType, isLoading, ...otherProps }) => {
+  const CustomButton = getButton(buttonType);
+  return (
+    <CustomButton disabled={isLoading} {...otherProps}>
+      {isLoading ? <Spinner /> : children}
+    </CustomButton>
+  );
+};
+
+export default Button;
+
+//styles
 export const BaseButton = styled.button`
   min-width: 165px;
   width: auto;
@@ -47,26 +65,9 @@ const Spinner = styled(SpinnerContainer)`
   height: 30px;
 `;
 
-export const BUTTON_TYPE_CLASSES = {
-  base: "base",
-  google: "google-sign-in",
-  inverted: "inverted",
-};
-
 const getButton = (buttonType = BUTTON_TYPE_CLASSES.base) =>
   ({
     [BUTTON_TYPE_CLASSES.base]: BaseButton,
     [BUTTON_TYPE_CLASSES.google]: GoogleSignInButton,
     [BUTTON_TYPE_CLASSES.inverted]: InvertedButon,
   }[buttonType]);
-
-const Button = ({ children, buttonType, isLoading, ...otherProps }) => {
-  const CustomButton = getButton(buttonType);
-  return (
-    <CustomButton disabled={isLoading} {...otherProps}>
-      {isLoading ? <Spinner /> : children}
-    </CustomButton>
-  );
-};
-
-export default Button;

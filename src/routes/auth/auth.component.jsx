@@ -18,10 +18,3 @@ const AuthFormsContainer = styled.div`
   width: 900px;
   margin: 34px auto;
 `;
-
-// .auth-forms-container {
-//   display: flex;
-//   justify-content: space-evenly;
-//   width: 900px;
-//   margin: 34px auto;
-// }

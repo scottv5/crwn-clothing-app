@@ -5,14 +5,10 @@ import {
   removeItem,
 } from "../../store/cart/cart.action";
 import "./checkout-item.styles.scss";
-// import { useContext } from "react";
-// import { CartContext } from "../../contexts/cart.context";
 import { useSelector } from "react-redux";
 import { selectCartItems } from "../../store/cart/cart.selector";
 
 const CheckoutItem = ({ cartItem }) => {
-  // const { increaseItemQuantity, decreaseItemQuantity, removeItem } =
-  //   useContext(CartContext);
   const dispatch = useDispatch();
   const cartItems = useSelector(selectCartItems);
   const { imageUrl, name, price, quantity } = cartItem;
