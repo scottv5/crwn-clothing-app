@@ -11,10 +11,11 @@ import {
 } from "../../store/cart/cart.selector";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { CartItem as CartItemType } from "../../store/cart/cart.types";
 
 const CartDropdown = () => {
   const navigate = useNavigate();
-  const cartItems = useSelector(selectCartItems);
+  const cartItems: CartItemType[] = useSelector(selectCartItems);
   const priceTotal = useSelector(selectPriceTotal);
   return (
     <CartDropdownContainer>
@@ -38,11 +39,11 @@ export default CartDropdown;
 //styles
 const CartDropdownContainer = styled.div`
   position: absolute;
-  width: 240px;
+  width: 260px;
   height: 340px;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 12px;
   border: 1px solid black;
   background-color: white;
   top: 90px;
@@ -59,7 +60,11 @@ const CartItemsContainer = styled.div`
   height: 240px;
   display: flex;
   flex-direction: column;
-  overflow: scroll;
+  overflow-y: scroll;
+
+  ::-webkit-scrollbar {
+    width: 0.4em;
+  }
 `;
 const EmptyMessage = styled.span`
   font-size: 18px;

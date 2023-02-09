@@ -5,6 +5,7 @@ import {
   Action,
   ActionWithPayload,
 } from "../../utils/reducer/reducer.utils";
+import { Dispatch, AnyAction } from "redux";
 
 export type FetchCategoriesStart =
   Action<CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_DATA_START>;
@@ -40,12 +41,13 @@ export type CategoryAction =
   | FetchCategoriesSucess
   | FetchCategoriesFailed;
 
-export const fetchCategoriesAsync = () => async (dispatch: any) => {
-  dispatch(fetchCategoriesDataStart());
-  try {
-    const categoriesData = await getCategoriesAndDocuments();
-    dispatch(fetchCategoriesDataSuccess(categoriesData as Category[]));
-  } catch (error) {
-    dispatch(fetchCategoriesDataFailed(error as Error));
-  }
-};
+export const fetchCategoriesAsync =
+  () => async (dispatch: Dispatch<AnyAction>) => {
+    dispatch(fetchCategoriesDataStart());
+    try {
+      const categoriesData = await getCategoriesAndDocuments();
+      dispatch(fetchCategoriesDataSuccess(categoriesData));
+    } catch (error) {
+      dispatch(fetchCategoriesDataFailed(error as Error));
+    }
+  };

@@ -6,6 +6,7 @@ import {
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 import styled from "styled-components";
+import { ChangeEvent, FormEvent } from "react";
 
 const SignUpForm = () => {
   const defaultFormFields = {
@@ -18,7 +19,7 @@ const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
-  const signUpFormSubmitHandler = async (e) => {
+  const signUpFormSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       setFormFields(() => ({
@@ -31,7 +32,7 @@ const SignUpForm = () => {
     try {
       const res = await createAuthUserWithEmailAndPassword(email, password);
       setFormFields(() => defaultFormFields);
-      await createUserDocumentFromAuth(res.user, { displayName });
+      if (res) await createUserDocumentFromAuth(res.user, { displayName });
     } catch (e) {
       console.log(
         "There was an error trying to create a user with email & password,",
@@ -40,7 +41,7 @@ const SignUpForm = () => {
     }
   };
 
-  const inputOnChangeHandler = (e) => {
+  const inputOnChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setFormFields(() => ({
       ...formFields,
       [e.target.name]: e.target.value,
@@ -105,13 +106,3 @@ const SignUpFormContainer = styled.div`
     margin: 10px 0;
   }
 `;
-
-// .sign-up-container {
-//   display: flex;
-//   flex-direction: column;
-//   width: 380px;
-
-//   h2 {
-//     margin: 10px 0;
-//   }
-// }

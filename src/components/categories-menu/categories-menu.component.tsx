@@ -1,7 +1,13 @@
 import CategoryItem from "../category-item/category-item.component";
-import "./categories-menu.styles.scss";
+import styled from "styled-components";
 
-const categories = [
+export type HomeCategoryItem = {
+  id: number;
+  title: string;
+  imageUrl: string;
+};
+
+const categories: HomeCategoryItem[] = [
   {
     id: 1,
     title: "hats",
@@ -30,11 +36,19 @@ const categories = [
 ];
 
 const CategoriesMenu = () => (
-  <div className="categories-container">
+  <CategoriesContainer>
     {categories.map((category) => (
       <CategoryItem key={category.id} category={category} />
     ))}
-  </div>
+  </CategoriesContainer>
 );
 
 export default CategoriesMenu;
+
+//styles
+const CategoriesContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;

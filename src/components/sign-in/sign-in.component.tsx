@@ -1,21 +1,15 @@
 import FormInput from "../form-input/form-input.component";
 import { useState } from "react";
-// , useEffect
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
 import {
-  //auth,
   signInWithGooglePopup,
   signInWithGoogleRedirect,
-  //createUserDocumentFromAuth,
   signInAuthUserWithEmailAndPassword,
 } from "../../utils/firebase/firebase.utils";
-//import { getRedirectResult } from "firebase/auth";
 import styled from "styled-components";
-// import { useContext } from "react";
-// import { UserContext } from "../../contexts/user.context";
+import { ChangeEvent, FormEvent } from "react";
 
 const SignInForm = () => {
-  //const { setCurrentUser } = useContext(UserContext);
   const defaultFormFields = {
     email: "",
     password: "",
@@ -23,24 +17,11 @@ const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
-  // useEffect(() => {
-  //   const getRedirectResultAndCreateUserDoc = async () => {
-  //     const res = await getRedirectResult(auth);
-  //     if (res && res.user) {
-  //       //const userDoc=
-  //       await createUserDocumentFromAuth(res.user);
-  //       setCurrentUser(res.user);
-  //     }
-  //   };
-  //   getRedirectResultAndCreateUserDoc();
-  // }, [setCurrentUser]);
-
   const logGoogleUserWithPopup = async () => {
     await signInWithGooglePopup();
-    //const userDoc =
   };
 
-  const signInFormSubmitHandler = async (e) => {
+  const signInFormSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       await signInAuthUserWithEmailAndPassword(email, password);
@@ -53,7 +34,7 @@ const SignInForm = () => {
     }
   };
 
-  const inputOnChangeHandler = (e) => {
+  const inputOnChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setFormFields(() => ({
       ...formFields,
       [e.target.name]: e.target.value,
@@ -122,19 +103,3 @@ const SignInButtonsContainer = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
 `;
-
-// .sign-in-container {
-//   display: flex;
-//   flex-direction: column;
-//   width: 380px;
-
-//   h2 {
-//     margin: 10px 0;
-//   }
-// }
-
-// .sign-in-buttons-container {
-//   display: flex;
-//   flex-wrap: wrap;
-//   justify-content: space-between;
-// }
