@@ -68,7 +68,11 @@ export const signInAuthUserWithEmailAndPassword = async (
 
 export const signOutUser = async () => await signOut(auth);
 
-export const onAuthStateChangedListener = (callback: NextOrObserver<User>) => {
+type UserWithAcessToken = User & { accessToken?: string };
+
+export const onAuthStateChangedListener = (
+  callback: NextOrObserver<UserWithAcessToken>
+) => {
   if (!callback) return;
   return onAuthStateChanged(auth, callback);
 };
@@ -116,7 +120,7 @@ type AdditionalInfo = {
 export type UserData = {
   displayName: string | null;
   email: string | null;
-  createdAt: Date;
+  createdAt: Date & { seconds?: number };
 };
 
 export const createUserDocumentFromAuth = async (

@@ -1,6 +1,5 @@
-import { CART_ACTION_TYPES } from "./cart.types";
-import { CartAction } from "./cart.action";
 import { CartItem } from "./cart.types";
+import { createSlice } from "@reduxjs/toolkit";
 
 export type CartState = {
   readonly cartItems: CartItem[];
@@ -12,17 +11,19 @@ const INITIAL_STATE: CartState = {
   isDropdownOpen: false,
 };
 
-export const cartReducer = (
-  state = INITIAL_STATE,
-  action = {} as CartAction
-) => {
-  const { isDropdownOpen } = state;
-  switch (action.type) {
-    case CART_ACTION_TYPES.UPDATE_CART_ITEMS:
-      return { ...state, cartItems: action.payload };
-    case CART_ACTION_TYPES.TOGGLE_DROPDOWN:
-      return { ...state, isDropdownOpen: !isDropdownOpen };
-    default:
-      return state;
-  }
-};
+const cartSlice = createSlice({
+  name: "cart",
+  initialState: INITIAL_STATE,
+  reducers: {
+    updateCartItems(state, action) {
+      state.cartItems = action.payload;
+    },
+    toggleDropdown(state) {
+      state.isDropdownOpen = !state.isDropdownOpen;
+    },
+  },
+});
+
+export const { updateCartItems, toggleDropdown } = cartSlice.actions;
+
+export const cartReducer = cartSlice.reducer;

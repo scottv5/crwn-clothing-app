@@ -20,15 +20,16 @@ const App = () => {
     const unsubscribe = onAuthStateChangedListener(async (user) => {
       let res;
       if (user) res = await createUserDocumentFromAuth(user);
-      const userStateObject = !!user
-        ? {
-            accessToken: user.accessToken,
-            displayName: user.displayName || res.displayName,
-            email: user.email,
-            createdAt: res.createdAt.seconds,
-          }
-        : null;
-      dispatch(setCurrentUser(userStateObject));
+      const userStateObjectOrNull =
+        user && res
+          ? {
+              accessToken: user.accessToken,
+              displayName: user.displayName || res.displayName,
+              email: user.email,
+              createdAt: res.createdAt.seconds,
+            }
+          : null;
+      dispatch(setCurrentUser(userStateObjectOrNull));
     });
     return unsubscribe;
   }, [dispatch]);

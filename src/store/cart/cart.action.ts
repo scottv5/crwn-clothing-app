@@ -1,22 +1,9 @@
-import { createAction } from "../../utils/reducer/reducer.utils";
-import { CART_ACTION_TYPES } from "./cart.types";
 import { CartItem } from "./cart.types";
 import { CategoryItem } from "../categories/categories.types";
-import { ActionWithPayload, Action } from "../../utils/reducer/reducer.utils";
+import { updateCartItems } from "./cart.reducer";
 
-////////////////TYPES FOR CART ACTIONS////////////////
-type UpdateCartItems = ActionWithPayload<
-  CART_ACTION_TYPES.UPDATE_CART_ITEMS,
-  CartItem[]
->;
-
-type ToggleDropdown = Action<CART_ACTION_TYPES.TOGGLE_DROPDOWN>;
-
-export type CartAction = UpdateCartItems | ToggleDropdown;
-////////////////////////////////////////////////////////
-
-/////////////BUSINESS LOGIC FOR CART ACTIONS////////////
-const addItemToCartHelper = (
+/////////////BUSINESS LOGIC FOR CART////////////
+const addItemToCartArrayCreator = (
   cartItems: CartItem[],
   productToAdd: CategoryItem
 ): CartItem[] => {
@@ -33,7 +20,7 @@ const addItemToCartHelper = (
   return [...cartItems, { ...productToAdd, quantity: 1 }];
 };
 
-const increaseItemQuantityHelper = (
+const increaseItemQuantityArrayCreator = (
   cartItems: CartItem[],
   itemToIncreaseQuantity: CartItem
 ): CartItem[] =>
@@ -45,7 +32,7 @@ const increaseItemQuantityHelper = (
     return item;
   });
 
-const decreaseItemQuantityHelper = (
+const decreaseItemQuantityArrayCreator = (
   cartItems: CartItem[],
   itemToDecreaseQuantity: CartItem
 ): CartItem[] =>
@@ -57,45 +44,39 @@ const decreaseItemQuantityHelper = (
     return item;
   });
 
-const removeItemHelper = (
+const removeItemArrayCreator = (
   cartItems: CartItem[],
   itemToRemove: CartItem
 ): CartItem[] => cartItems.filter((item) => item.id !== itemToRemove.id);
 ////////////////////////////////////////////////////////////
 
-///////////////////CART ACTIONS////////////////////////////
-const updateCartItems = (newCartItems: CartItem[]): UpdateCartItems => {
-  return createAction(CART_ACTION_TYPES.UPDATE_CART_ITEMS, newCartItems);
-};
-
-export const toggleDropdown = (): ToggleDropdown => {
-  return createAction(CART_ACTION_TYPES.TOGGLE_DROPDOWN);
-};
-
+////////////////CART ACTION CREATORS////////////////////////
 export const addItemToCart = (
   cartItems: CartItem[],
   productToAdd: CategoryItem
-): UpdateCartItems => {
-  return updateCartItems(addItemToCartHelper(cartItems, productToAdd));
+) => {
+  return updateCartItems(addItemToCartArrayCreator(cartItems, productToAdd));
 };
 
 export const increaseItemQuantity = (
   cartItems: CartItem[],
   itemToIncrease: CartItem
-): UpdateCartItems => {
-  return updateCartItems(increaseItemQuantityHelper(cartItems, itemToIncrease));
+) => {
+  return updateCartItems(
+    increaseItemQuantityArrayCreator(cartItems, itemToIncrease)
+  );
 };
 
 export const decreaseItemQuantity = (
   cartItems: CartItem[],
   itemToDecrease: CartItem
-): UpdateCartItems => {
-  return updateCartItems(decreaseItemQuantityHelper(cartItems, itemToDecrease));
+) => {
+  return updateCartItems(
+    decreaseItemQuantityArrayCreator(cartItems, itemToDecrease)
+  );
 };
 
-export const removeItem = (
-  cartItems: CartItem[],
-  itemToRemove: CartItem
-): UpdateCartItems => {
-  return updateCartItems(removeItemHelper(cartItems, itemToRemove));
+export const removeItem = (cartItems: CartItem[], itemToRemove: CartItem) => {
+  return updateCartItems(removeItemArrayCreator(cartItems, itemToRemove));
 };
+/////////////////////////////////////////////////////////

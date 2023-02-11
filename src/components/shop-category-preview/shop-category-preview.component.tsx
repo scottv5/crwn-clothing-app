@@ -1,8 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import ProductCard from "../product-card/product-card.component";
 import styled from "styled-components";
+import { CategoryItem } from "../../store/categories/categories.types";
 
-const ShopCategoryPreview = ({ title, products }) => {
+type ShopCategoryPreviewProps = {
+  title: string;
+  products: CategoryItem[];
+};
+
+const ShopCategoryPreview = ({ title, products }: ShopCategoryPreviewProps) => {
   const navigate = useNavigate();
   return (
     <CategoryPreviewContainer>
@@ -12,7 +18,7 @@ const ShopCategoryPreview = ({ title, products }) => {
         </Title>
       </h2>
       <Preview>
-        {products.map((product, i) => {
+        {products.map((product, i: number) => {
           if (i < 4) {
             return <ProductCard key={product.id} product={product} />;
           }
