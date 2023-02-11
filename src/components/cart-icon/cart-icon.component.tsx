@@ -1,6 +1,8 @@
-import { ReactComponent as ShoppingSvg } from "../../assets/shopping-bag.svg";
 import styled from "styled-components";
+
 import { useDispatch, useSelector } from "react-redux";
+
+import { ReactComponent as ShoppingSvg } from "../../assets/shopping-bag.svg";
 import { selectQuantityTotal } from "../../store/cart/cart.selector";
 import { toggleDropdown } from "../../store/cart/cart.reducer";
 

@@ -1,6 +1,8 @@
 import styled from "styled-components";
-import { SpinnerContainer } from "../spinner/spinner.component";
+
 import { ButtonHTMLAttributes, FC } from "react";
+
+import { SpinnerContainer } from "../spinner/spinner.component";
 
 export enum BUTTON_TYPE_CLASSES {
   base = "base",

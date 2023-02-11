@@ -1,12 +1,12 @@
+import styled from "styled-components";
+
 import { useDispatch } from "react-redux";
+
 import {
   decreaseItemQuantity,
   increaseItemQuantity,
   removeItem,
-} from "../../store/cart/cart.action";
-import { useSelector } from "react-redux";
-import { selectCartItems } from "../../store/cart/cart.selector";
-import styled from "styled-components";
+} from "../../store/cart/cart.reducer";
 import { CartItem } from "../../store/cart/cart.types";
 
 type CheckoutItemProps = {
@@ -15,7 +15,6 @@ type CheckoutItemProps = {
 
 const CheckoutItem = ({ cartItem }: CheckoutItemProps) => {
   const dispatch = useDispatch();
-  const cartItems: CartItem[] = useSelector(selectCartItems);
   const { imageUrl, name, price, quantity } = cartItem;
 
   return (
@@ -25,22 +24,16 @@ const CheckoutItem = ({ cartItem }: CheckoutItemProps) => {
       </ImageContainer>
       <Name>{name}</Name>
       <QuantityControlGroup>
-        <Arrow
-          onClick={() => dispatch(decreaseItemQuantity(cartItems, cartItem))}
-        >
+        <Arrow onClick={() => dispatch(decreaseItemQuantity(cartItem))}>
           &#60;
         </Arrow>
         <QuantityValue>{quantity}</QuantityValue>
-        <Arrow
-          onClick={() => dispatch(increaseItemQuantity(cartItems, cartItem))}
-        >
+        <Arrow onClick={() => dispatch(increaseItemQuantity(cartItem))}>
           &#62;
         </Arrow>
       </QuantityControlGroup>
       <Price>{price}</Price>
-      <XMark onClick={() => dispatch(removeItem(cartItems, cartItem))}>
-        &#10005;
-      </XMark>
+      <XMark onClick={() => dispatch(removeItem(cartItem))}>&#10005;</XMark>
     </CheckoutItemContainer>
   );
 };

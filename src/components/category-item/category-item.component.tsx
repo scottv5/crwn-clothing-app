@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import { useNavigate } from "react-router-dom";
 import { HomeCategoryItem } from "../categories-menu/categories-menu.component";
 
@@ -12,13 +13,13 @@ type BackgroundImageProps = {
 const CategoryItem = ({ category: { imageUrl, title } }: CategoryItemProps) => {
   const navigate = useNavigate();
   return (
-    <CategoryContainer>
+    <CategoryItemContainer>
       <BackgroundImage backgroundImage={imageUrl} />
       <BodyContainer onClick={() => navigate(`/shop/${title}`)}>
         <h2>{title.toUpperCase()}</h2>
         <p>Shop Now</p>
       </BodyContainer>
-    </CategoryContainer>
+    </CategoryItemContainer>
   );
 };
 
@@ -32,7 +33,6 @@ const BackgroundImage = styled.div<BackgroundImageProps>`
   background-position: center;
   background-image: ${(props) => `url(${props.backgroundImage})`};
 `;
-
 const BodyContainer = styled.div`
   height: 90px;
   padding: 0 25px;
@@ -54,8 +54,7 @@ const BodyContainer = styled.div`
     font-size: 1.16rem;
   }
 `;
-
-const CategoryContainer = styled.div`
+const CategoryItemContainer = styled.div`
   min-width: 30%;
   height: 240px;
   flex: auto;
@@ -74,11 +73,5 @@ const CategoryContainer = styled.div`
     & ${BodyContainer} {
       opacity: 0.9;
     }
-  }
-  &:first-child {
-    margin-right: 7.5px;
-  }
-  &:last-child {
-    margin-left: 7.5px;
   }
 `;

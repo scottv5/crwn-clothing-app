@@ -1,5 +1,6 @@
-import CategoryItem from "../category-item/category-item.component";
 import styled from "styled-components";
+
+import CategoryItem from "../category-item/category-item.component";
 
 export type HomeCategoryItem = {
   id: number;
@@ -48,6 +49,8 @@ export default CategoriesMenu;
 //styles
 const CategoriesContainer = styled.div`
   width: 100%;
+  max-width: 1800px;
+  margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;

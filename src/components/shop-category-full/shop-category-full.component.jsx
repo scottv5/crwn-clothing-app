@@ -1,11 +1,14 @@
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import ProductCard from "../product-card/product-card.component";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
-import { selectCategoriesMap } from "../../store/categories/categories.selector";
+
+import ProductCard from "../product-card/product-card.component";
 import Spinner from "../spinner/spinner.component";
+
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 import { selectCategoriesIsLoading } from "../../store/categories/categories.selector";
+import { selectCategoriesMap } from "../../store/categories/categories.selector";
 
 const ShopCategoryFull = () => {
   const { category } = useParams();
@@ -53,20 +56,3 @@ const Preview = styled.div`
   column-gap: 10px;
   row-gap: 20px;
 `;
-
-// .category-full-container {
-//   display: flex;
-//   flex-direction: column;
-//   margin-bottom: 30px;
-//   .title {
-//     text-align: center;
-//     font-size: 28px;
-//     margin-bottom: 25px;
-//   }
-//   .preview {
-//     display: grid;
-//     grid-template-columns: repeat(4, 1fr);
-//     column-gap: 10px;
-//     row-gap: 20px;
-//   }
-// }

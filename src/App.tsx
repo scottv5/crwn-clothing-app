@@ -6,29 +6,42 @@ import Checkout from "./routes/checkout/checkout.component";
 
 import { Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+
 import {
   createUserDocumentFromAuth,
   onAuthStateChangedListener,
 } from "./utils/firebase/firebase.utils";
 import { setCurrentUser } from "./store/user/user.reducer";
-import { useDispatch } from "react-redux";
+import { UserStateObject } from "./store/user/user.types";
 
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener(async (user) => {
-      let res;
+      let res, displayName;
+      let userStateObjectOrNull: UserStateObject | null = null;
+
       if (user) res = await createUserDocumentFromAuth(user);
-      const userStateObjectOrNull =
-        user && res
-          ? {
-              accessToken: user.accessToken,
-              displayName: user.displayName || res.displayName,
-              email: user.email,
-              createdAt: res.createdAt.seconds,
-            }
-          : null;
+      if (res && res.displayName) {
+        displayName = user?.displayName || res.displayName;
+      }
+      if (
+        user &&
+        res &&
+        user.accessToken &&
+        displayName &&
+        user.email &&
+        res.createdAt.seconds
+      ) {
+        userStateObjectOrNull = {
+          accessToken: user.accessToken,
+          displayName,
+          email: user.email,
+          createdAt: res.createdAt.seconds,
+        };
+      }
       dispatch(setCurrentUser(userStateObjectOrNull));
     });
     return unsubscribe;

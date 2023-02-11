@@ -1,9 +1,8 @@
 import styled from "styled-components";
 
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
-import { useDispatch, useSelector } from "react-redux";
-import { selectCartItems } from "../../store/cart/cart.selector";
-import { addItemToCart } from "../../store/cart/cart.action";
+import { useDispatch } from "react-redux";
+import { addItemToCart } from "../../store/cart/cart.reducer";
 import { CategoryItem } from "../../store/categories/categories.types";
 
 type ProductCardProps = {
@@ -13,10 +12,9 @@ type ProductCardProps = {
 const ProductCard = ({ product }: ProductCardProps) => {
   const dispatch = useDispatch();
   const { imageUrl, name, price } = product;
-  const cartItems = useSelector(selectCartItems);
 
   const onClickHandler = () => {
-    dispatch(addItemToCart(cartItems, product));
+    dispatch(addItemToCart(product));
   };
   return (
     <ProductCardContainer>

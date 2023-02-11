@@ -1,12 +1,14 @@
-import { useState } from "react";
+import styled from "styled-components";
+
+import FormInput from "../form-input/form-input.component";
+import Button from "../button/button.component";
+
+import { ChangeEvent, FormEvent, useState } from "react";
+
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase.utils";
-import FormInput from "../form-input/form-input.component";
-import Button from "../button/button.component";
-import styled from "styled-components";
-import { ChangeEvent, FormEvent } from "react";
 
 const SignUpForm = () => {
   const defaultFormFields = {

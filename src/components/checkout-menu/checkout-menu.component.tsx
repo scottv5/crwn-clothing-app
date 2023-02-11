@@ -1,11 +1,14 @@
+import styled from "styled-components";
+
 import CheckoutItem from "../checkout-item/checkout-item.component";
+import PaymentForm from "../payments-form/payments-form.component";
+
 import { useSelector } from "react-redux";
+
 import {
   selectCartItems,
   selectPriceTotal,
 } from "../../store/cart/cart.selector";
-import PaymentForm from "../payments-form/payments-form.component";
-import styled from "styled-components";
 import { CartItem } from "../../store/cart/cart.types";
 
 const CheckoutMenu = () => {

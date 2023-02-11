@@ -1,13 +1,15 @@
+import styled from "styled-components";
+
 import FormInput from "../form-input/form-input.component";
-import { useState } from "react";
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
+
+import { ChangeEvent, FormEvent, useState } from "react";
+
 import {
   signInWithGooglePopup,
   signInWithGoogleRedirect,
   signInAuthUserWithEmailAndPassword,
 } from "../../utils/firebase/firebase.utils";
-import styled from "styled-components";
-import { ChangeEvent, FormEvent } from "react";
 
 const SignInForm = () => {
   const defaultFormFields = {

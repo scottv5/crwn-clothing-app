@@ -1,5 +1,9 @@
-import { Category } from "./categories.types";
 import { createSlice } from "@reduxjs/toolkit";
+
+import { Dispatch, AnyAction } from "redux";
+import { Category } from "./categories.types";
+
+import { getCategoriesAndDocuments } from "../../utils/firebase/firebase.utils";
 
 export type CategoriesState = {
   readonly categoriesData: Category[];
@@ -14,7 +18,7 @@ const INITIAL_STATE: CategoriesState = {
 };
 
 export const categoriesSlice = createSlice({
-  name: "category",
+  name: "categories",
   initialState: INITIAL_STATE,
   reducers: {
     fetchCategoriesDataStart(state) {
@@ -38,3 +42,16 @@ export const {
 } = categoriesSlice.actions;
 
 export const categoriesReducer = categoriesSlice.reducer;
+
+//////////////////CATEGORIES THUNK//////////////////////
+export const fetchCategoriesAsync =
+  () => async (dispatch: Dispatch<AnyAction>) => {
+    dispatch(fetchCategoriesDataStart());
+    try {
+      const categoriesData = await getCategoriesAndDocuments();
+      dispatch(fetchCategoriesDataSuccess(categoriesData));
+    } catch (error) {
+      dispatch(fetchCategoriesDataFailed(error as Error));
+    }
+  };
+///////////////////////////////////////////////////////////

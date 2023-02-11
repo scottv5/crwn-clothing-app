@@ -1,18 +1,19 @@
-import { Routes, Route } from "react-router-dom";
-import ShopPreview from "../../components/shop-preview/shop-preview.component";
 import ShopCategoryFull from "../../components/shop-category-full/shop-category-full.component";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { fetchCategoriesAsync } from "../../store/categories/categories.thunk";
-import { Dispatch } from "react";
+import ShopPreview from "../../components/shop-preview/shop-preview.component";
+
 import { AnyAction } from "@reduxjs/toolkit";
+import { Dispatch } from "react";
+import { Routes, Route } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
-type asyncDispatch = <T>(dispatch: Dispatch<T>) => Promise<void>;
+import { fetchCategoriesAsync } from "../../store/categories/categories.reducer";
 
-type ExtendedDispatch = Dispatch<AnyAction> & asyncDispatch;
+type AsyncDispatch = (<T>(dispatch: Dispatch<T>) => Promise<void>) &
+  Dispatch<AnyAction>;
 
 const Shop = () => {
-  const dispatch: ExtendedDispatch = useDispatch();
+  const dispatch: AsyncDispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchCategoriesAsync());

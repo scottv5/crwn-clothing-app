@@ -1,8 +1,9 @@
-import { User } from "firebase/auth";
+//import { User } from "firebase/auth";
 import { createSlice } from "@reduxjs/toolkit";
+import { UserStateObject } from "./user.types";
 
 type UserState = {
-  currentUser: null | User;
+  readonly currentUser: null | UserStateObject;
 };
 
 const INITIAL_STATE: UserState = { currentUser: null };
